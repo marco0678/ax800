@@ -23,7 +23,7 @@
   </head>
   <body>
     <model-viewer
-      src="AX800.glb"
+      src="AX_800.glb"
       alt="baader"
       ar
       ar-modes="scene-viewer webxr quick-look"
@@ -31,5 +31,21 @@
       auto-rotate
       camera-controls
     ></model-viewer>
+      
+  <script>
+      const viewer = document.getElementById("viewer");
+
+      viewer.addEventListener("load", async () => {
+        await viewer.updateComplete;
+
+        // Aplicamos rugosidad a todos los materiales
+        const materiales = viewer.model.materials;
+        for (const mat of materiales) {
+          mat.pbrMetallicRoughness.setRoughnessFactor(0.1); // valor de rugosidad: 0 = liso, 1 = áspero
+        }
+
+        console.log("Rugosidad aplicada.");
+      });
+    </script>
   </body>
 </html>
